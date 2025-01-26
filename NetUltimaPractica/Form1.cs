@@ -23,6 +23,16 @@ namespace NetUltimaPractica
             }
         }
 
+        private async Task RefrescarListaEmpleados(string nombreDpto)
+        {
+            List<Empleado> empleados = await this.repo.GetEmpleadosAsync(nombreDpto);
+            this.lstEmpleados.Items.Clear();
+            foreach (Empleado emp in empleados)
+            {
+                this.lstEmpleados.Items.Add(emp.Apellido + " - " + emp.Oficio + " - " + emp.Salario);
+            }
+        }
+
         private async void btnInsertar_Click(object sender, EventArgs e)
         {
             int idDpto = int.Parse(this.txtId.Text);
@@ -85,14 +95,24 @@ namespace NetUltimaPractica
 
                     // Refrescar la lista de empleados
                     string nombreDpto = this.cmbDptos.SelectedItem.ToString();
-                    List<Empleado> empleados = await this.repo.GetEmpleadosAsync(nombreDpto);
-                    this.lstEmpleados.Items.Clear();
-                    foreach (Empleado emp in empleados)
-                    {
-                        this.lstEmpleados.Items.Add(emp.Apellido + " - " + emp.Oficio + " - " + emp.Salario);
-                    }
+                    await this.RefrescarListaEmpleados(nombreDpto);
                 }
             }
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string empleado = this.lstEmpleados.SelectedItem.ToString();
+            string[] datosEmpleado = empleado.Split(" - ");
+            string apellido = datosEmpleado[0];
+            await this.repo.DeleteEmpleadoAsync(apellido);
+            
+            MessageBox.Show("Empleado borrado con éxito");
+            string nombreDpto = this.cmbDptos.SelectedItem.ToString();
+            await this.RefrescarListaEmpleados(nombreDpto);
+
+            // Refrescar los departamentos en el ComboBox
+            await this.LoadDptos();
         }
     }
 }

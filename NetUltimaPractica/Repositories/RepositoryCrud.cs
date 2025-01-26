@@ -139,5 +139,17 @@ namespace NetUltimaPractica.Repositories
             await this.cn.CloseAsync();
             this.com.Parameters.Clear();
         }
+
+        public async Task DeleteEmpleadoAsync(string apellido)
+        {
+            string sql = "SP_DELETE_EMP";
+            this.com.Parameters.AddWithValue("@apellido", apellido);
+            this.com.CommandType = System.Data.CommandType.StoredProcedure;
+            this.com.CommandText = sql;
+            await this.cn.OpenAsync();
+            await this.com.ExecuteNonQueryAsync();
+            await this.cn.CloseAsync();
+            this.com.Parameters.Clear();
+        }
     }
 }

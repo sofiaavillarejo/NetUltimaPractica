@@ -46,6 +46,7 @@
             label7 = new Label();
             label8 = new Label();
             btnUpdate = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -200,11 +201,22 @@
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(622, 713);
+            button1.Name = "button1";
+            button1.Size = new Size(188, 95);
+            button1.TabIndex = 18;
+            button1.Text = "Delete empleado";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1400, 749);
+            ClientSize = new Size(1482, 852);
+            Controls.Add(button1);
             Controls.Add(btnUpdate);
             Controls.Add(txtSalario);
             Controls.Add(txtOficio);
@@ -249,5 +261,6 @@
         private Label label7;
         private Label label8;
         private Button btnUpdate;
+        private Button button1;
     }
 }
